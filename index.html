@@ -126,4 +126,9 @@
     return "मैं सुन रही हूँ… आगे बोलो 🤍";
   }
 </script>
+document.getElementById("msg").addEventListener("keypress", function(e) {
+  if (e.key === "Enter") {
+    send();
+  }
+});
 
