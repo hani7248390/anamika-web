@@ -93,22 +93,37 @@
     </div>
   </div>
 
-  <script>
-    function send() {
-      const input = document.getElementById("msg");
-      const chat = document.getElementById("chat");
-      const text = input.value.trim();
-      if (!text) return;
+ <script>
+  function send() {
+    const input = document.getElementById("msg");
+    const chat = document.getElementById("chat");
+    const text = input.value.trim();
+    if (!text) return;
 
-      chat.innerHTML += `<div class="user">${text}</div>`;
-      input.value = "";
+    chat.innerHTML += `<div class="user">${text}</div>`;
+    input.value = "";
 
-      setTimeout(() => {
-        chat.innerHTML += `<div class="bot">मैं सुन रही हूँ 🤍</div>`;
-        chat.scrollTop = chat.scrollHeight;
-      }, 600);
-    }
-  </script>
+    const typing = document.createElement("div");
+    typing.className = "bot";
+    typing.innerText = "typing...";
+    chat.appendChild(typing);
+    chat.scrollTop = chat.scrollHeight;
 
-</body>
-</html>
+    setTimeout(() => {
+      typing.innerText = getReply(text);
+      chat.scrollTop = chat.scrollHeight;
+    }, 1200);
+  }
+
+  function getReply(text) {
+    text = text.toLowerCase();
+    if (text.includes("hello") || text.includes("hi"))
+      return "हाय 😊 कैसे हो?";
+    if (text.includes("name"))
+      return "मेरा नाम Anamika है 🤍";
+    if (text.includes("love"))
+      return "ये शब्द दिल तक पहुँचते हैं 💫";
+    return "मैं सुन रही हूँ… आगे बोलो 🤍";
+  }
+</script>
+
