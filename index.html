@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Anamika Chat</title>
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .chat-box {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+        }
+        .msg {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .bot {
+            background: #1e293b;
+        }
+        .user {
+            background: #2563eb;
+            text-align: right;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-box">
+    <div class="msg bot">हाय 🤍 मैं अनामिका हूँ</div>
+    <div id="chat"></div>
+    <input id="input" placeholder="यहाँ लिखो..." />
+</div>
+
+<script>
+const input = document.getElementById("input");
+const chat = document.getElementById("chat");
+
+input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        const text = input.value;
+        if (!text) return;
+
+        chat.innerHTML += `<div class="msg user">${text}</div>`;
+
+        let reply = "मैं सुन रही हूँ 🤍";
+
+        if (text.toLowerCase().includes("hi") || text.includes("हाय"))
+            reply = "हाय 😊 कैसे हो?";
+        else if (text.includes("love"))
+            reply = "ये शब्द दिल तक पहुँचते हैं 🤍";
+        else if (text.includes("study") || text.includes("jee"))
+            reply = "थोड़ा-थोड़ा रोज़ पढ़ो 💪";
+
+        setTimeout(() => {
+            chat.innerHTML += `<div class="msg bot">${reply}</div>`;
+        }, 500);
+
+        input.value = "";
+    }
+});
+</script>
+
+</body>
+</html>
