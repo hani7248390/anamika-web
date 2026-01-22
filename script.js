@@ -1,32 +1,58 @@
+const loginBox = document.getElementById("loginBox");
+const chatBox = document.getElementById("chatBox");
+const messages = document.getElementById("messages");
+
 function login() {
-  const user = document.getElementById("username").value;
-  const pass = document.getElementById("password").value;
-  const msg  = document.getElementById("loginMsg");
+  const u = document.getElementById("username").value;
+  const p = document.getElementById("password").value;
 
-  if (user === "admin" && pass === "1234") {
-    msg.innerText = "✅ Login Success";
-    msg.style.color = "lightgreen";
-
-    setTimeout(() => {
-      document.getElementById("loginBox").classList.add("hidden");
-      document.getElementById("chatBox").classList.remove("hidden");
-    }, 800);
-
+  if (u === "admin" && p === "1234") {
+    loginBox.style.display = "none";
+    chatBox.classList.remove("hidden");
   } else {
-    msg.innerText = "❌ Invalid Login";
-    msg.style.color = "red";
+    document.getElementById("loginError").innerText = "❌ गलत लॉगिन";
   }
+}
+
+function logout() {
+  location.reload();
 }
 
 function sendMsg() {
   const input = document.getElementById("userInput");
-  const chat  = document.getElementById("chatArea");
+  const text = input.value.trim();
+  if (!text) return;
 
-  if (input.value.trim() === "") return;
-
-  chat.innerHTML += `<div class="msg user">You: ${input.value}</div>`;
-  chat.innerHTML += `<div class="msg bot">Anamika: मैं सुन रही हूँ 💖</div>`;
-
+  addMsg(text, "user");
   input.value = "";
-  chat.scrollTop = chat.scrollHeight;
+
+  setTimeout(() => {
+    addMsg(generateReply(text), "ai");
+  }, 600);
+}
+
+function addMsg(text, who) {
+  const div = document.createElement("div");
+  div.className = who === "user" ? "msg-user" : "msg-ai";
+  div.innerText = text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function generateReply(t) {
+  t = t.toLowerCase();
+
+  if (t.includes("hello") || t.includes("hi"))
+    return "हाय 😊 मैं अनामिका हूँ";
+
+  if (t.includes("love"))
+    return "ये शब्द दिल को छू गए 🤍";
+
+  if (t.includes("sad"))
+    return "मैं यहीं हूँ, सब ठीक हो जाएगा 🌙";
+
+  if (t.includes("bye"))
+    return "फिर मिलेंगे 🌸 अपना ख्याल रखना";
+
+  return "मैं सुन रही हूँ… और बताओ 🤍";
 }
