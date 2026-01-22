@@ -1,172 +1,207 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <title>Anamika AI Chat</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Anamika AI – Web</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #0f2027, #000);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-    }
-
-    .chat-container {
-      width: 360px;
-      height: 520px;
-      background: #0b0f14;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(0, 200, 255, 0.4);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .chat-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 15px;
-      background: #05080d;
-      border-bottom: 1px solid #1e2a38;
-    }
-
-    .chat-header img {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .chat-header h3 {
-      margin: 0;
-      font-size: 16px;
-    }
-
-    .chat-box {
-      flex: 1;
-      padding: 15px;
-      overflow-y: auto;
-      font-size: 14px;
-    }
-
-    .msg {
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
-
-    .user {
-      text-align: right;
-      color: #4fc3f7;
-    }
-
-    .bot {
-      text-align: left;
-      color: #e0e0e0;
-    }
-
-    .chat-input {
-      display: flex;
-      padding: 10px;
-      background: #05080d;
-      border-top: 1px solid #1e2a38;
-    }
-
-    .chat-input input {
-      flex: 1;
-      padding: 10px;
-      border-radius: 12px;
-      border: none;
-      outline: none;
-      font-size: 14px;
-    }
-
-    .chat-input button {
-      margin-left: 8px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: none;
-      cursor: pointer;
-      background: #03a9f4;
-      color: black;
-      font-weight: bold;
-    }
-  </style>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle,#020024,#090979,#000);
+  font-family:Segoe UI;
+  color:white;
+}
+.box{
+  width:350px;
+  background:#0b0f1a;
+  padding:20px;
+  border-radius:18px;
+  box-shadow:0 0 25px cyan;
+}
+h2{text-align:center;margin:5px 0 15px}
+input,textarea{
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  border-radius:8px;
+  border:none;
+  outline:none;
+}
+button{
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  border:none;
+  border-radius:8px;
+  background:cyan;
+  font-weight:bold;
+  cursor:pointer;
+}
+.link{
+  text-align:center;
+  margin-top:10px;
+  color:cyan;
+  cursor:pointer;
+}
+.hidden{display:none}
+img{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  display:block;
+  margin:10px auto;
+  object-fit:cover;
+  border:2px solid cyan;
+}
+.chat{
+  background:#05070f;
+  padding:10px;
+  height:120px;
+  overflow:auto;
+  border-radius:10px;
+  font-size:14px;
+}
+.userItem{
+  border-bottom:1px solid #333;
+  padding:6px;
+}
+small{opacity:.7}
+</style>
 </head>
 
 <body>
 
-<div class="chat-container">
-  <div class="chat-header">
-    <img src="avatar.jpg" alt="Anamika">
-    <h3>Anamika 💙</h3>
+<!-- SIGNUP -->
+<div class="box" id="signupBox">
+  <h2>📝 Signup</h2>
+  <input id="su_name" placeholder="Username">
+  <input id="su_pass" type="password" placeholder="Password">
+  <button onclick="signup()">Create Account</button>
+  <div class="link" onclick="showLogin()">Already have account?</div>
+</div>
+
+<!-- LOGIN -->
+<div class="box hidden" id="loginBox">
+  <h2>🔐 Login</h2>
+  <input id="li_name" placeholder="Username">
+  <input id="li_pass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- DASHBOARD -->
+<div class="box hidden" id="dashboard">
+  <img id="profilePic" src="">
+  <h2 id="welcome"></h2>
+
+  <input type="file" accept="image/*" onchange="uploadPhoto(event)">
+
+  <div class="chat" id="chatBox">
+    <small>Anamika AI: नमस्ते 🤍</small>
   </div>
 
-  <div class="chat-box" id="chatBox">
-    <div class="msg bot">हाय 😊 मैं Anamika हूँ, बात करो…</div>
-  </div>
+  <textarea id="msg" placeholder="कुछ लिखो…"></textarea>
+  <button onclick="send()">Send</button>
 
-  <div class="chat-input">
-    <input type="text" id="userInput" placeholder="यहाँ लिखो…" />
-    <button onclick="sendMessage()">Send</button>
-  </div>
+  <button onclick="openAdmin()">Admin Panel</button>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<!-- ADMIN -->
+<div class="box hidden" id="adminBox">
+  <h2>👑 Admin Panel</h2>
+  <div id="userList"></div>
+  <button onclick="back()">Back</button>
 </div>
 
 <script>
-  function sendMessage() {
-    const input = document.getElementById("userInput");
-    const text = input.value.trim();
-    if (text === "") return;
+function users(){return JSON.parse(localStorage.getItem("users")||"[]")}
+function save(u){localStorage.setItem("users",JSON.stringify(u))}
 
-    addMessage(text, "user");
-    input.value = "";
+function signup(){
+  let u=su_name.value.trim(),p=su_pass.value.trim();
+  if(!u||!p){alert("सब भरना जरूरी है");return;}
+  let us=users();
+  if(us.find(x=>x.name===u)){alert("User पहले से है");return;}
+  us.push({name:u,pass:p,photo:""});
+  save(us);
+  alert("Account बन गया");
+  showLogin();
+}
 
-    setTimeout(() => {
-      const reply = generateReply(text);
-      addMessage(reply, "bot");
-    }, 500);
-  }
+function login(){
+  let u=li_name.value.trim(),p=li_pass.value.trim();
+  let us=users().find(x=>x.name===u&&x.pass===p);
+  if(!us){alert("गलत जानकारी");return;}
+  localStorage.setItem("currentUser",u);
+  loadDash();
+}
 
-  function addMessage(text, sender) {
-    const box = document.getElementById("chatBox");
-    const div = document.createElement("div");
-    div.className = "msg " + sender;
-    div.innerText = text;
-    box.appendChild(div);
-    box.scrollTop = box.scrollHeight;
-  }
+function loadDash(){
+  signupBox.classList.add("hidden");
+  loginBox.classList.add("hidden");
+  dashboard.classList.remove("hidden");
+  let u=localStorage.getItem("currentUser");
+  welcome.innerText="Hello "+u;
+  let user=users().find(x=>x.name===u);
+  if(user.photo) profilePic.src=user.photo;
+}
 
-  function generateReply(msg) {
-    const t = msg.toLowerCase();
+function uploadPhoto(e){
+  let f=e.target.files[0];
+  let r=new FileReader();
+  r.onload=()=>{
+    let us=users();
+    let u=localStorage.getItem("currentUser");
+    us.find(x=>x.name===u).photo=r.result;
+    save(us);
+    profilePic.src=r.result;
+  };
+  r.readAsDataURL(f);
+}
 
-    if (t.includes("hello") || t.includes("hi") || t.includes("हाय")) {
-      return "हाय 😊 कैसे हो?";
-    }
+function send(){
+  let t=msg.value.trim();
+  if(!t)return;
+  chatBox.innerHTML+=`<div>🧑‍💻 ${t}</div>`;
+  let reply="मैं सुन रही हूँ… 🤍";
+  if(t.includes("hello")||t.includes("hi")) reply="नमस्ते 😊";
+  if(t.includes("love")) reply="ये शब्द दिल तक पहुँचते हैं 🤍";
+  if(t.includes("study")) reply="धीरे-धीरे लेकिन रोज़ 💪";
+  setTimeout(()=>chatBox.innerHTML+=`<div><small>Anamika AI:</small> ${reply}</div>`,500);
+  msg.value="";
+  chatBox.scrollTop=chatBox.scrollHeight;
+}
 
-    if (t.includes("नाम")) {
-      return "मेरा नाम Anamika है 💙";
-    }
+function openAdmin(){
+  dashboard.classList.add("hidden");
+  adminBox.classList.remove("hidden");
+  let html="";
+  users().forEach(u=>html+=`<div class="userItem">👤 ${u.name}</div>`);
+  userList.innerHTML=html;
+}
 
-    if (t.includes("कैसे हो")) {
-      return "मैं ठीक हूँ 😊 तुम बताओ?";
-    }
+function back(){
+  adminBox.classList.add("hidden");
+  dashboard.classList.remove("hidden");
+}
 
-    if (t.includes("प्यार")) {
-      return "कुछ बातें दिल से आती हैं 🤍";
-    }
+function logout(){
+  localStorage.removeItem("currentUser");
+  location.reload();
+}
 
-    if (t.includes("study") || t.includes("पढ़ाई")) {
-      return "धीरे-धीरे लेकिन रोज़ पढ़ो 💪";
-    }
+function showLogin(){
+  signupBox.classList.add("hidden");
+  loginBox.classList.remove("hidden");
+}
 
-    return "मैं सुन रही हूँ… थोड़ा और बताओ 🙂";
-  }
+if(localStorage.getItem("currentUser")) loadDash();
 </script>
 
 </body>
