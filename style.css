@@ -1,130 +1,60 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Segoe UI;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-body{
-  background:#000;
-  color:white;
+.card {
+  background: #111;
+  color: #fff;
+  width: 350px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0,255,255,.3);
 }
 
-.screen{
-  width:100vw;
-  height:100vh;
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
 }
 
-/* LOGIN */
-.login-bg{
-  background:
-   linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
-   url("images/login-bg.jpg");
-  background-size:cover;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: #00f2fe;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.glass-card{
-  width:320px;
-  padding:30px;
-  border-radius:20px;
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(15px);
-  text-align:center;
+.hidden {
+  display: none;
 }
 
-.main-logo{
-  width:80px;
+#chatArea {
+  height: 250px;
+  background: #000;
+  padding: 10px;
+  overflow-y: auto;
+  margin-bottom: 10px;
 }
 
-.glass-card input{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border-radius:12px;
-  border:none;
+.msg {
+  margin: 5px 0;
 }
+.user { color: #00f2fe; }
+.bot { color: #ff6ec7; }
 
-.glass-card button{
-  width:100%;
-  padding:12px;
-  background:#ff4b7d;
-  border:none;
-  border-radius:12px;
-  color:white;
+.inputRow {
+  display: flex;
+  gap: 5px;
 }
-
-/* CHAT */
-.hidden{display:none}
-
-.top-bar{
-  height:60px;
-  background:#111;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px;
-}
-
-.chat-icon{
-  width:30px;
-}
-
-.chat{
-  height:calc(100vh - 140px);
-  padding:15px;
-  overflow-y:auto;
-}
-
-.msg{
-  max-width:70%;
-  padding:12px;
-  margin:8px;
-  border-radius:15px;
-}
-
-.bot{
-  background:#ff4b7d;
-}
-
-.user{
-  background:#333;
-  margin-left:auto;
-}
-
-.input-bar{
-  height:60px;
-  display:flex;
-}
-
-.input-bar input{
-  flex:1;
-  padding:12px;
-}
-
-.input-bar button{
-  width:80px;
-  background:#ff4b7d;
-  border:none;
-  color:white;
-}
-
-/* BACKGROUNDS */
-.romantic{
-  background:
-   linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
-   url("images/romantic-bg.jpg");
-  background-size:cover;
-}
-
-.minimal{
-  background:#f5f5f5;
-  color:black;
-}
-
-.dark{
-  background:#000;
-}
-
