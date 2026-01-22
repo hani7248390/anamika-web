@@ -1,31 +1,32 @@
-function login(){
-  if(password.value.length < 6){
-    strengthText.innerText = "Password too short";
-    return;
+function login() {
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
+  const msg  = document.getElementById("loginMsg");
+
+  if (user === "admin" && pass === "1234") {
+    msg.innerText = "✅ Login Success";
+    msg.style.color = "lightgreen";
+
+    setTimeout(() => {
+      document.getElementById("loginBox").classList.add("hidden");
+      document.getElementById("chatBox").classList.remove("hidden");
+    }, 800);
+
+  } else {
+    msg.innerText = "❌ Invalid Login";
+    msg.style.color = "red";
   }
-  loginScreen.classList.add("hidden");
-  chatScreen.classList.remove("hidden");
 }
 
-function sendMsg(){
-  if(message.value==="") return;
+function sendMsg() {
+  const input = document.getElementById("userInput");
+  const chat  = document.getElementById("chatArea");
 
-  let div = document.createElement("div");
-  div.className="msg user";
-  div.innerText = message.value;
-  chatArea.appendChild(div);
+  if (input.value.trim() === "") return;
 
-  message.value="";
+  chat.innerHTML += `<div class="msg user">You: ${input.value}</div>`;
+  chat.innerHTML += `<div class="msg bot">Anamika: मैं सुन रही हूँ 💖</div>`;
 
-  setTimeout(()=>{
-    let bot = document.createElement("div");
-    bot.className="msg bot";
-    bot.innerText="I’m listening 💕";
-    chatArea.appendChild(bot);
-  },800);
+  input.value = "";
+  chat.scrollTop = chat.scrollHeight;
 }
-
-function changeBg(type){
-  chatArea.className="chat " + type;
-}
-
