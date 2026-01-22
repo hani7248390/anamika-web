@@ -1,57 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <title>Anamika | Premium Chat</title>
+  <title>Anamika Premium Chat</title>
   <link rel="stylesheet" href="style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
 <!-- LOGIN SCREEN -->
-<div id="loginScreen" class="screen login-bg">
-  <div class="glass-card">
-
-    <img src="images/logo-a-heart.png" class="main-logo">
-
-    <h2>Welcome to Anamika</h2>
-    <p class="tagline">Premium Emotional Chat Experience</p>
-
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
-    <div class="strength" id="strengthText"></div>
-
-    <button onclick="login()">Secure Login 🔐</button>
-    <p class="secure-text">Protected UI Layer</p>
-
-  </div>
+<div id="loginBox" class="card">
+  <h2>🔐 Secure Login</h2>
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+  <button onclick="login()">LOGIN</button>
+  <p id="loginMsg"></p>
 </div>
 
 <!-- CHAT SCREEN -->
-<div id="chatScreen" class="screen hidden">
+<div id="chatBox" class="card hidden">
+  <h2>💬 Anamika Chat</h2>
 
-  <div class="top-bar">
-    <img src="images/chat-logo.png" class="chat-icon">
-    <span>Anamika</span>
+  <div id="chatArea"></div>
 
-    <select onchange="changeBg(this.value)">
-      <option value="romantic">Romantic</option>
-      <option value="minimal">Minimal</option>
-      <option value="dark">Dark</option>
-    </select>
-  </div>
-
-  <div id="chatArea" class="chat romantic">
-    <div class="msg bot">Hi 💗 I am Anamika</div>
-  </div>
-
-  <div class="typing">Anamika is typing...</div>
-
-  <div class="input-bar">
-    <input type="text" id="message" placeholder="Type your message">
+  <div class="inputRow">
+    <input type="text" id="userInput" placeholder="Message लिखो…">
     <button onclick="sendMsg()">Send</button>
   </div>
-
 </div>
 
 <script src="script.js"></script>
