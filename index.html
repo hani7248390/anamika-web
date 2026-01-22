@@ -2,28 +2,33 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <title>Anamika Premium Chat</title>
+  <title>Anamika AI</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- LOGIN SCREEN -->
-<div id="loginBox" class="card">
-  <h2>🔐 Secure Login</h2>
+<div id="loginBox" class="center-box">
+  <h1>Anamika 💙</h1>
+  <p>Secure Login</p>
   <input type="text" id="username" placeholder="Username">
   <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">LOGIN</button>
-  <p id="loginMsg"></p>
+  <button onclick="login()">Login</button>
+  <p id="loginError"></p>
 </div>
 
 <!-- CHAT SCREEN -->
-<div id="chatBox" class="card hidden">
-  <h2>💬 Anamika Chat</h2>
+<div id="chatBox" class="chat-box hidden">
+  <div class="chat-header">
+    <img src="images/logo.png" class="logo">
+    <span>Anamika AI</span>
+    <button onclick="logout()">Logout</button>
+  </div>
 
-  <div id="chatArea"></div>
+  <div id="messages" class="messages"></div>
 
-  <div class="inputRow">
-    <input type="text" id="userInput" placeholder="Message लिखो…">
+  <div class="input-box">
+    <input type="text" id="userInput" placeholder="कुछ लिखो…">
     <button onclick="sendMsg()">Send</button>
   </div>
 </div>
