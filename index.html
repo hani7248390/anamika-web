@@ -2,243 +2,125 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<title>Anamika – Next Level Experience</title>
+<title>Anamika Secure Login</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box;font-family:"Segoe UI",sans-serif}
+*{box-sizing:border-box;font-family:Poppins,Segoe UI}
 body{
-margin:0;height:100vh;overflow:hidden;color:#fff;
-transition:background 1s ease;
-}
-.bg1{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364)}
-.bg2{background:linear-gradient(135deg,#1a002b,#3a0066,#12001e)}
-.bg3{background:linear-gradient(135deg,#102f1c,#1e5631,#0b3d2e)}
-
-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}
-
-/* LOGIN */
-#login{
-height:100vh;display:flex;align-items:center;justify-content:center
-}
-.login{
-width:420px;padding:44px;border-radius:30px;
-background:rgba(255,255,255,.12);
-backdrop-filter:blur(40px);
-box-shadow:0 40px 140px rgba(0,0,0,.8);
-text-align:center;
-}
-.logo{
-width:90px;height:90px;margin:auto;border-radius:50%;
-background:linear-gradient(135deg,#ff79c6,#b983ff);
+margin:0;height:100vh;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 display:flex;align-items:center;justify-content:center;
-font-size:36px;font-weight:bold;
+color:#fff
 }
-.login h1{margin:14px 0 6px}
-.login p{opacity:.8;font-size:14px}
-.login input, .login select{
-margin-top:18px;width:100%;
-padding:16px;border:none;border-radius:16px
-}
-.login button{
-margin-top:22px;width:100%;
-padding:16px;border:none;border-radius:16px;
-background:linear-gradient(135deg,#ff79c6,#ff9ad5);
-font-weight:bold;cursor:pointer
-}
-
-/* APP */
-#app{display:none;height:100vh;flex-direction:column}
-
-/* TOP */
-#top{
-height:70px;display:flex;align-items:center;
-padding:0 26px;
-background:rgba(0,0,0,.45);
-backdrop-filter:blur(20px)
-}
-#top .logo{width:42px;height:42px;font-size:20px;margin:0}
-#top div{margin-left:14px}
-
-/* CONTENT */
-#content{flex:1;display:flex}
-
-/* SIDE */
-#side{
-width:260px;padding:22px;
-background:rgba(0,0,0,.55)
-}
-.mode{
-padding:14px;border-radius:16px;
+#box{
+width:420px;padding:40px;border-radius:28px;
 background:rgba(255,255,255,.15);
-margin-bottom:14px;cursor:pointer
+backdrop-filter:blur(35px);
+box-shadow:0 30px 60px rgba(0,0,0,.5);
+animation:pop .6s ease
 }
-.mode:hover{background:rgba(255,255,255,.3)}
+h1{text-align:center;margin-bottom:8px}
+p{text-align:center;opacity:.8;margin-bottom:26px}
 
-/* CHAT */
-#main{flex:1;display:flex;flex-direction:column}
-#chat{
-flex:1;padding:34px;overflow-y:auto
+input{
+width:100%;padding:16px;
+margin-top:16px;border:none;
+border-radius:14px;font-size:15px
 }
-.msg{
-max-width:65%;padding:18px 22px;
-border-radius:26px;margin-bottom:18px;
-line-height:1.65;
-animation:fade .35s ease
+button{
+margin-top:24px;width:100%;
+padding:16px;border:none;
+border-radius:14px;
+background:linear-gradient(135deg,#ff79c6,#bd93f9);
+font-weight:600;cursor:pointer
 }
-.user{
-margin-left:auto;
-background:linear-gradient(135deg,#ff79c6,#ff9ad5);
-color:#000
-}
-.bot{
-background:rgba(255,255,255,.25)
-}
-
-/* INPUT */
-#input{
-display:flex;padding:18px;
-background:rgba(0,0,0,.65)
-}
-#input input{
-flex:1;padding:18px;border:none;border-radius:16px
-}
-#input button{
-margin-left:12px;padding:18px 22px;
-border:none;border-radius:16px;
-background:#ff79c6;cursor:pointer
+#error{
+margin-top:16px;color:#ffb4b4;
+text-align:center;display:none
 }
 
-@keyframes fade{
-from{opacity:0;transform:translateY(18px)}
-to{opacity:1}
+#app{display:none;width:100%;height:100vh}
+#app h2{text-align:center;margin-top:40px}
+
+@keyframes pop{
+from{transform:scale(.9);opacity:0}
+to{transform:scale(1);opacity:1}
 }
 </style>
 </head>
 
-<body class="bg1">
-<canvas id="bg"></canvas>
+<body>
 
 <!-- LOGIN -->
-<div id="login">
-<div class="login">
-<div class="logo">A</div>
+<div id="box">
 <h1>Anamika</h1>
-<p>Choose your space before entering</p>
+<p>Secure Login</p>
 
-<input id="name" placeholder="अपना नाम लिखो">
+<input id="user" placeholder="Username">
+<input id="pass" type="password" placeholder="Password">
 
-<select id="theme">
-<option value="bg1">Calm Blue</option>
-<option value="bg2">Deep Purple</option>
-<option value="bg3">Forest Green</option>
-</select>
-
-<button onclick="start()">Enter</button>
-</div>
+<button onclick="login()">Login</button>
+<div id="error"></div>
 </div>
 
 <!-- APP -->
 <div id="app">
-<div id="top">
-<div class="logo">A</div>
-<div>
-<b>Anamika</b><br>
-<span id="status" style="font-size:12px;opacity:.8">Listening</span>
-</div>
-</div>
-
-<div id="content">
-<div id="side">
-<div class="mode" onclick="mode='soft'">🌿 Soft</div>
-<div class="mode" onclick="mode='balanced'">⚖️ Balanced</div>
-<div class="mode" onclick="mode='direct'">🎯 Direct</div>
-</div>
-
-<div id="main">
-<div id="chat"></div>
-<div id="input">
-<input id="text" placeholder="जो मन में हो, लिखो…">
-<button onclick="send()">Send</button>
-</div>
-</div>
-</div>
+<h2>Welcome to Anamika 🌸</h2>
+<p style="text-align:center">Login Successful</p>
 </div>
 
 <script>
-/* PARTICLES */
-const c=document.getElementById("bg"),x=c.getContext("2d");
-c.width=innerWidth;c.height=innerHeight;
-let dots=[...Array(70)].map(()=>({
-x:Math.random()*c.width,y:Math.random()*c.height,
-r:Math.random()*2+1,dx:(Math.random()-.5)*.25,dy:(Math.random()-.5)*.25
-}));
-(function draw(){
-x.clearRect(0,0,c.width,c.height);
-dots.forEach(d=>{
-x.beginPath();x.arc(d.x,d.y,d.r,0,Math.PI*2);
-x.fillStyle="rgba(255,255,255,.4)";
-x.fill();
-d.x+=d.dx;d.y+=d.dy;
-if(d.x<0||d.x>c.width)d.dx*=-1;
-if(d.y<0||d.y>c.height)d.dy*=-1;
-});
-requestAnimationFrame(draw);
-})();
-
-/* LOGIC */
-let user="",mode="soft";
-let memory=[];
-
-function start(){
-user=name.value.trim();
-if(!user)return;
-document.body.className=theme.value;
-login.style.display="none";
-app.style.display="flex";
-bot(`हाय ${user}।  
-यह जगह धीरे बात करने के लिए है।  
-कोई जल्दी नहीं।`);
+/* BASIC FRONTEND SECURITY */
+function hash(text){
+let h=0;
+for(let i=0;i<text.length;i++){
+h=(h<<5)-h+text.charCodeAt(i);
+h|=0;
+}
+return h.toString();
 }
 
-function send(){
-let t=text.value.trim();
-if(!t)return;
-text.value="";
-add(t,"user");
-memory.push(t);
-setTimeout(()=>bot(reply(t)),mode==="soft"?900:600);
+/* DEFAULT USER (demo) */
+if(!localStorage.getItem("userHash")){
+localStorage.setItem("userHash",hash("admin"));
+localStorage.setItem("passHash",hash("1234"));
 }
 
-function add(t,c){
-let d=document.createElement("div");
-d.className="msg "+c;
-d.innerText=t;
-chat.appendChild(d);
-chat.scrollTop=chat.scrollHeight;
+/* AUTO LOGIN */
+if(localStorage.getItem("loggedIn")==="true"){
+openApp();
 }
 
-function bot(t){add(t,"bot")}
+function login(){
+let u=user.value.trim();
+let p=pass.value.trim();
+error.style.display="none";
 
-function reply(t){
-let low=t.toLowerCase();
-let last=memory[memory.length-2]||"";
+if(!u||!p){
+show("सब फील्ड भरना ज़रूरी है");
+return;
+}
 
-if(low.includes("थक")||low.includes("tired"))
-return "लगता है आज शरीर और दिमाग दोनों थके हैं। थोड़ी राहत ज़रूरी है।";
+if(
+hash(u)===localStorage.getItem("userHash") &&
+hash(p)===localStorage.getItem("passHash")
+){
+localStorage.setItem("loggedIn","true");
+openApp();
+}else{
+show("गलत Username या Password");
+}
+}
 
-if(low.includes("गुस्सा")||low.includes("angry"))
-return "गुस्सा अक्सर थकान या दबाव से आता है। हम इसे हल्का कर सकते हैं।";
+function show(msg){
+error.innerText=msg;
+error.style.display="block";
+}
 
-if(low.includes("कल")||last.includes("कल"))
-return "तुमने पहले जो बताया था, वही शायद अब असर दिखा रहा है।";
-
-if(t.length<5)
-return "मैं यहीं हूँ। कोई जल्दबाज़ी नहीं।";
-
-return mode==="direct"
-? "समझ रही हूँ। आगे क्या सबसे ज़्यादा ज़रूरी लग रहा है?"
-: "मैं सुन रही हूँ। आराम से आगे बताओ।";
+function openApp(){
+box.style.display="none";
+app.style.display="block";
 }
 </script>
 
