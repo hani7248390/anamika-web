@@ -1,128 +1,59 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Anamika Secure Login</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-*{box-sizing:border-box;font-family:Poppins,Segoe UI}
-body{
-margin:0;height:100vh;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-display:flex;align-items:center;justify-content:center;
-color:#fff
-}
-#box{
-width:420px;padding:40px;border-radius:28px;
-background:rgba(255,255,255,.15);
-backdrop-filter:blur(35px);
-box-shadow:0 30px 60px rgba(0,0,0,.5);
-animation:pop .6s ease
-}
-h1{text-align:center;margin-bottom:8px}
-p{text-align:center;opacity:.8;margin-bottom:26px}
-
-input{
-width:100%;padding:16px;
-margin-top:16px;border:none;
-border-radius:14px;font-size:15px
-}
-button{
-margin-top:24px;width:100%;
-padding:16px;border:none;
-border-radius:14px;
-background:linear-gradient(135deg,#ff79c6,#bd93f9);
-font-weight:600;cursor:pointer
-}
-#error{
-margin-top:16px;color:#ffb4b4;
-text-align:center;display:none
-}
-
-#app{display:none;width:100%;height:100vh}
-#app h2{text-align:center;margin-top:40px}
-
-@keyframes pop{
-from{transform:scale(.9);opacity:0}
-to{transform:scale(1);opacity:1}
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Anamika | Premium Chat</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
 
-<!-- LOGIN -->
-<div id="box">
-<h1>Anamika</h1>
-<p>Secure Login</p>
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="screen login-bg">
+  <div class="glass-card">
 
-<input id="user" placeholder="Username">
-<input id="pass" type="password" placeholder="Password">
+    <img src="images/logo-a-heart.png" class="main-logo">
 
-<button onclick="login()">Login</button>
-<div id="error"></div>
+    <h2>Welcome to Anamika</h2>
+    <p class="tagline">Premium Emotional Chat Experience</p>
+
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <div class="strength" id="strengthText"></div>
+
+    <button onclick="login()">Secure Login 🔐</button>
+    <p class="secure-text">Protected UI Layer</p>
+
+  </div>
 </div>
 
-<!-- APP -->
-<div id="app">
-<h2>Welcome to Anamika 🌸</h2>
-<p style="text-align:center">Login Successful</p>
+<!-- CHAT SCREEN -->
+<div id="chatScreen" class="screen hidden">
+
+  <div class="top-bar">
+    <img src="images/chat-logo.png" class="chat-icon">
+    <span>Anamika</span>
+
+    <select onchange="changeBg(this.value)">
+      <option value="romantic">Romantic</option>
+      <option value="minimal">Minimal</option>
+      <option value="dark">Dark</option>
+    </select>
+  </div>
+
+  <div id="chatArea" class="chat romantic">
+    <div class="msg bot">Hi 💗 I am Anamika</div>
+  </div>
+
+  <div class="typing">Anamika is typing...</div>
+
+  <div class="input-bar">
+    <input type="text" id="message" placeholder="Type your message">
+    <button onclick="sendMsg()">Send</button>
+  </div>
+
 </div>
 
-<script>
-/* BASIC FRONTEND SECURITY */
-function hash(text){
-let h=0;
-for(let i=0;i<text.length;i++){
-h=(h<<5)-h+text.charCodeAt(i);
-h|=0;
-}
-return h.toString();
-}
-
-/* DEFAULT USER (demo) */
-if(!localStorage.getItem("userHash")){
-localStorage.setItem("userHash",hash("admin"));
-localStorage.setItem("passHash",hash("1234"));
-}
-
-/* AUTO LOGIN */
-if(localStorage.getItem("loggedIn")==="true"){
-openApp();
-}
-
-function login(){
-let u=user.value.trim();
-let p=pass.value.trim();
-error.style.display="none";
-
-if(!u||!p){
-show("सब फील्ड भरना ज़रूरी है");
-return;
-}
-
-if(
-hash(u)===localStorage.getItem("userHash") &&
-hash(p)===localStorage.getItem("passHash")
-){
-localStorage.setItem("loggedIn","true");
-openApp();
-}else{
-show("गलत Username या Password");
-}
-}
-
-function show(msg){
-error.innerText=msg;
-error.style.display="block";
-}
-
-function openApp(){
-box.style.display="none";
-app.style.display="block";
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
