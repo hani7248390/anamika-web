@@ -2,206 +2,244 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<title>Anamika AI – Web</title>
+<title>Anamika – Next Level Experience</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{box-sizing:border-box}
+*{box-sizing:border-box;font-family:"Segoe UI",sans-serif}
 body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:radial-gradient(circle,#020024,#090979,#000);
-  font-family:Segoe UI;
-  color:white;
+margin:0;height:100vh;overflow:hidden;color:#fff;
+transition:background 1s ease;
 }
-.box{
-  width:350px;
-  background:#0b0f1a;
-  padding:20px;
-  border-radius:18px;
-  box-shadow:0 0 25px cyan;
+.bg1{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364)}
+.bg2{background:linear-gradient(135deg,#1a002b,#3a0066,#12001e)}
+.bg3{background:linear-gradient(135deg,#102f1c,#1e5631,#0b3d2e)}
+
+canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}
+
+/* LOGIN */
+#login{
+height:100vh;display:flex;align-items:center;justify-content:center
 }
-h2{text-align:center;margin:5px 0 15px}
-input,textarea{
-  width:100%;
-  padding:10px;
-  margin:6px 0;
-  border-radius:8px;
-  border:none;
-  outline:none;
+.login{
+width:420px;padding:44px;border-radius:30px;
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(40px);
+box-shadow:0 40px 140px rgba(0,0,0,.8);
+text-align:center;
 }
-button{
-  width:100%;
-  padding:10px;
-  margin-top:8px;
-  border:none;
-  border-radius:8px;
-  background:cyan;
-  font-weight:bold;
-  cursor:pointer;
+.logo{
+width:90px;height:90px;margin:auto;border-radius:50%;
+background:linear-gradient(135deg,#ff79c6,#b983ff);
+display:flex;align-items:center;justify-content:center;
+font-size:36px;font-weight:bold;
 }
-.link{
-  text-align:center;
-  margin-top:10px;
-  color:cyan;
-  cursor:pointer;
+.login h1{margin:14px 0 6px}
+.login p{opacity:.8;font-size:14px}
+.login input, .login select{
+margin-top:18px;width:100%;
+padding:16px;border:none;border-radius:16px
 }
-.hidden{display:none}
-img{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  display:block;
-  margin:10px auto;
-  object-fit:cover;
-  border:2px solid cyan;
+.login button{
+margin-top:22px;width:100%;
+padding:16px;border:none;border-radius:16px;
+background:linear-gradient(135deg,#ff79c6,#ff9ad5);
+font-weight:bold;cursor:pointer
 }
-.chat{
-  background:#05070f;
-  padding:10px;
-  height:120px;
-  overflow:auto;
-  border-radius:10px;
-  font-size:14px;
+
+/* APP */
+#app{display:none;height:100vh;flex-direction:column}
+
+/* TOP */
+#top{
+height:70px;display:flex;align-items:center;
+padding:0 26px;
+background:rgba(0,0,0,.45);
+backdrop-filter:blur(20px)
 }
-.userItem{
-  border-bottom:1px solid #333;
-  padding:6px;
+#top .logo{width:42px;height:42px;font-size:20px;margin:0}
+#top div{margin-left:14px}
+
+/* CONTENT */
+#content{flex:1;display:flex}
+
+/* SIDE */
+#side{
+width:260px;padding:22px;
+background:rgba(0,0,0,.55)
 }
-small{opacity:.7}
+.mode{
+padding:14px;border-radius:16px;
+background:rgba(255,255,255,.15);
+margin-bottom:14px;cursor:pointer
+}
+.mode:hover{background:rgba(255,255,255,.3)}
+
+/* CHAT */
+#main{flex:1;display:flex;flex-direction:column}
+#chat{
+flex:1;padding:34px;overflow-y:auto
+}
+.msg{
+max-width:65%;padding:18px 22px;
+border-radius:26px;margin-bottom:18px;
+line-height:1.65;
+animation:fade .35s ease
+}
+.user{
+margin-left:auto;
+background:linear-gradient(135deg,#ff79c6,#ff9ad5);
+color:#000
+}
+.bot{
+background:rgba(255,255,255,.25)
+}
+
+/* INPUT */
+#input{
+display:flex;padding:18px;
+background:rgba(0,0,0,.65)
+}
+#input input{
+flex:1;padding:18px;border:none;border-radius:16px
+}
+#input button{
+margin-left:12px;padding:18px 22px;
+border:none;border-radius:16px;
+background:#ff79c6;cursor:pointer
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(18px)}
+to{opacity:1}
+}
 </style>
 </head>
 
-<body>
-
-<!-- SIGNUP -->
-<div class="box" id="signupBox">
-  <h2>📝 Signup</h2>
-  <input id="su_name" placeholder="Username">
-  <input id="su_pass" type="password" placeholder="Password">
-  <button onclick="signup()">Create Account</button>
-  <div class="link" onclick="showLogin()">Already have account?</div>
-</div>
+<body class="bg1">
+<canvas id="bg"></canvas>
 
 <!-- LOGIN -->
-<div class="box hidden" id="loginBox">
-  <h2>🔐 Login</h2>
-  <input id="li_name" placeholder="Username">
-  <input id="li_pass" type="password" placeholder="Password">
-  <button onclick="login()">Login</button>
+<div id="login">
+<div class="login">
+<div class="logo">A</div>
+<h1>Anamika</h1>
+<p>Choose your space before entering</p>
+
+<input id="name" placeholder="अपना नाम लिखो">
+
+<select id="theme">
+<option value="bg1">Calm Blue</option>
+<option value="bg2">Deep Purple</option>
+<option value="bg3">Forest Green</option>
+</select>
+
+<button onclick="start()">Enter</button>
+</div>
 </div>
 
-<!-- DASHBOARD -->
-<div class="box hidden" id="dashboard">
-  <img id="profilePic" src="">
-  <h2 id="welcome"></h2>
-
-  <input type="file" accept="image/*" onchange="uploadPhoto(event)">
-
-  <div class="chat" id="chatBox">
-    <small>Anamika AI: नमस्ते 🤍</small>
-  </div>
-
-  <textarea id="msg" placeholder="कुछ लिखो…"></textarea>
-  <button onclick="send()">Send</button>
-
-  <button onclick="openAdmin()">Admin Panel</button>
-  <button onclick="logout()">Logout</button>
+<!-- APP -->
+<div id="app">
+<div id="top">
+<div class="logo">A</div>
+<div>
+<b>Anamika</b><br>
+<span id="status" style="font-size:12px;opacity:.8">Listening</span>
+</div>
 </div>
 
-<!-- ADMIN -->
-<div class="box hidden" id="adminBox">
-  <h2>👑 Admin Panel</h2>
-  <div id="userList"></div>
-  <button onclick="back()">Back</button>
+<div id="content">
+<div id="side">
+<div class="mode" onclick="mode='soft'">🌿 Soft</div>
+<div class="mode" onclick="mode='balanced'">⚖️ Balanced</div>
+<div class="mode" onclick="mode='direct'">🎯 Direct</div>
+</div>
+
+<div id="main">
+<div id="chat"></div>
+<div id="input">
+<input id="text" placeholder="जो मन में हो, लिखो…">
+<button onclick="send()">Send</button>
+</div>
+</div>
+</div>
 </div>
 
 <script>
-function users(){return JSON.parse(localStorage.getItem("users")||"[]")}
-function save(u){localStorage.setItem("users",JSON.stringify(u))}
+/* PARTICLES */
+const c=document.getElementById("bg"),x=c.getContext("2d");
+c.width=innerWidth;c.height=innerHeight;
+let dots=[...Array(70)].map(()=>({
+x:Math.random()*c.width,y:Math.random()*c.height,
+r:Math.random()*2+1,dx:(Math.random()-.5)*.25,dy:(Math.random()-.5)*.25
+}));
+(function draw(){
+x.clearRect(0,0,c.width,c.height);
+dots.forEach(d=>{
+x.beginPath();x.arc(d.x,d.y,d.r,0,Math.PI*2);
+x.fillStyle="rgba(255,255,255,.4)";
+x.fill();
+d.x+=d.dx;d.y+=d.dy;
+if(d.x<0||d.x>c.width)d.dx*=-1;
+if(d.y<0||d.y>c.height)d.dy*=-1;
+});
+requestAnimationFrame(draw);
+})();
 
-function signup(){
-  let u=su_name.value.trim(),p=su_pass.value.trim();
-  if(!u||!p){alert("सब भरना जरूरी है");return;}
-  let us=users();
-  if(us.find(x=>x.name===u)){alert("User पहले से है");return;}
-  us.push({name:u,pass:p,photo:""});
-  save(us);
-  alert("Account बन गया");
-  showLogin();
-}
+/* LOGIC */
+let user="",mode="soft";
+let memory=[];
 
-function login(){
-  let u=li_name.value.trim(),p=li_pass.value.trim();
-  let us=users().find(x=>x.name===u&&x.pass===p);
-  if(!us){alert("गलत जानकारी");return;}
-  localStorage.setItem("currentUser",u);
-  loadDash();
-}
-
-function loadDash(){
-  signupBox.classList.add("hidden");
-  loginBox.classList.add("hidden");
-  dashboard.classList.remove("hidden");
-  let u=localStorage.getItem("currentUser");
-  welcome.innerText="Hello "+u;
-  let user=users().find(x=>x.name===u);
-  if(user.photo) profilePic.src=user.photo;
-}
-
-function uploadPhoto(e){
-  let f=e.target.files[0];
-  let r=new FileReader();
-  r.onload=()=>{
-    let us=users();
-    let u=localStorage.getItem("currentUser");
-    us.find(x=>x.name===u).photo=r.result;
-    save(us);
-    profilePic.src=r.result;
-  };
-  r.readAsDataURL(f);
+function start(){
+user=name.value.trim();
+if(!user)return;
+document.body.className=theme.value;
+login.style.display="none";
+app.style.display="flex";
+bot(`हाय ${user}।  
+यह जगह धीरे बात करने के लिए है।  
+कोई जल्दी नहीं।`);
 }
 
 function send(){
-  let t=msg.value.trim();
-  if(!t)return;
-  chatBox.innerHTML+=`<div>🧑‍💻 ${t}</div>`;
-  let reply="मैं सुन रही हूँ… 🤍";
-  if(t.includes("hello")||t.includes("hi")) reply="नमस्ते 😊";
-  if(t.includes("love")) reply="ये शब्द दिल तक पहुँचते हैं 🤍";
-  if(t.includes("study")) reply="धीरे-धीरे लेकिन रोज़ 💪";
-  setTimeout(()=>chatBox.innerHTML+=`<div><small>Anamika AI:</small> ${reply}</div>`,500);
-  msg.value="";
-  chatBox.scrollTop=chatBox.scrollHeight;
+let t=text.value.trim();
+if(!t)return;
+text.value="";
+add(t,"user");
+memory.push(t);
+setTimeout(()=>bot(reply(t)),mode==="soft"?900:600);
 }
 
-function openAdmin(){
-  dashboard.classList.add("hidden");
-  adminBox.classList.remove("hidden");
-  let html="";
-  users().forEach(u=>html+=`<div class="userItem">👤 ${u.name}</div>`);
-  userList.innerHTML=html;
+function add(t,c){
+let d=document.createElement("div");
+d.className="msg "+c;
+d.innerText=t;
+chat.appendChild(d);
+chat.scrollTop=chat.scrollHeight;
 }
 
-function back(){
-  adminBox.classList.add("hidden");
-  dashboard.classList.remove("hidden");
-}
+function bot(t){add(t,"bot")}
 
-function logout(){
-  localStorage.removeItem("currentUser");
-  location.reload();
-}
+function reply(t){
+let low=t.toLowerCase();
+let last=memory[memory.length-2]||"";
 
-function showLogin(){
-  signupBox.classList.add("hidden");
-  loginBox.classList.remove("hidden");
-}
+if(low.includes("थक")||low.includes("tired"))
+return "लगता है आज शरीर और दिमाग दोनों थके हैं। थोड़ी राहत ज़रूरी है।";
 
-if(localStorage.getItem("currentUser")) loadDash();
+if(low.includes("गुस्सा")||low.includes("angry"))
+return "गुस्सा अक्सर थकान या दबाव से आता है। हम इसे हल्का कर सकते हैं।";
+
+if(low.includes("कल")||last.includes("कल"))
+return "तुमने पहले जो बताया था, वही शायद अब असर दिखा रहा है।";
+
+if(t.length<5)
+return "मैं यहीं हूँ। कोई जल्दबाज़ी नहीं।";
+
+return mode==="direct"
+? "समझ रही हूँ। आगे क्या सबसे ज़्यादा ज़रूरी लग रहा है?"
+: "मैं सुन रही हूँ। आराम से आगे बताओ।";
+}
 </script>
 
 </body>
