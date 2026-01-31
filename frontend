@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <title>ULTRA AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="hologram"></div>
+  <h1>ULTRA AI</h1>
+  <button onclick="startVoice()">🎙️ बोलो</button>
+  <p id="status">सुन रहा हूँ...</p>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
+
