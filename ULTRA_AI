@@ -1,0 +1,13 @@
+ULTRA_AI
+│
+├── backend
+│   ├── main.py
+│   ├── memory.py
+│   └── requirements.txt
+│
+├── frontend
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+│
+└── README.md
