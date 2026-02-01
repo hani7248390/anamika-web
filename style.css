@@ -1,7 +1,9 @@
-* {
+body {
   margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  background: black;
+  color: cyan;
+  font-family: monospace;
 }
 
 #bg {
@@ -9,36 +11,28 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1;
+  z-index: -2;
+}
+
+#scene {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .hud {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 80px;
-  color: cyan;
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
 }
 
 .logo {
-  width: 120px;
-}
-
-#ai-face {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, cyan, black);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 10px cyan; }
-  50% { box-shadow: 0 0 40px cyan; }
-  100% { box-shadow: 0 0 10px cyan; }
+  width: 90px;
+  opacity: 0.8;
 }
 
 #status {
-  margin-top: 20px;
   font-size: 18px;
+  text-shadow: 0 0 15px cyan;
 }
