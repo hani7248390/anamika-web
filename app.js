@@ -1,22 +1,22 @@
-function startVoice() {
-  const recognition = new webkitSpeechRecognition();
-  recognition.lang = "hi-IN";
+const status = document.getElementById("status");
 
-  recognition.onresult = function(event) {
-    const text = event.results[0][0].transcript;
-    document.getElementById("status").innerText = text;
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.lang = "hi-IN";
+recognition.continuous = true;
 
-    fetch("http://127.0.0.1:5000/speak", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text })
-    })
-    .then(res => res.json())
-    .then(data => {
-      const utter = new SpeechSynthesisUtterance(data.response);
-      speechSynthesis.speak(utter);
-    });
-  };
+recognition.onresult = async (event) => {
+  const text = event.results[event.results.length - 1][0].transcript;
+  status.innerText = "🧠 प्रोसेसिंग: " + text;
 
-  recognition.start();
-}
+  const res = await fetch("http://127.0.0.1:5000/ai", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text })
+  });
+
+  const data = await res.json();
+  status.innerText = "🤖 " + data.reply;
+};
+
+recognition.start();
