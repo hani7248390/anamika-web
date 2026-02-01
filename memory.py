@@ -1,16 +1,11 @@
-import json
-import os
+# Simple in-memory brain
+memory = []
 
-FILE = "memory.json"
+def save_memory(user_text, ai_text):
+    memory.append({
+        "user": user_text,
+        "ai": ai_text
+    })
 
-def save_memory(text):
-    data = load_memory()
-    data.append(text)
-    with open(FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-
-def load_memory():
-    if not os.path.exists(FILE):
-        return []
-    with open(FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+def get_memory():
+    return memory[-5:]
