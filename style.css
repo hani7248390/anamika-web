@@ -1,36 +1,44 @@
-body {
+* {
   margin: 0;
-  background: radial-gradient(circle, #050b2e, #000);
-  color: cyan;
-  font-family: Arial, sans-serif;
-  text-align: center;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.container {
+#bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.hud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 80px;
+  color: cyan;
 }
 
-.hologram {
+.logo {
+  width: 120px;
+}
+
+#ai-face {
   width: 200px;
   height: 200px;
-  margin: auto;
   border-radius: 50%;
-  background: rgba(0,255,255,0.2);
-  box-shadow: 0 0 40px cyan;
+  background: radial-gradient(circle, cyan, black);
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 20px cyan; }
-  50% { box-shadow: 0 0 60px cyan; }
-  100% { box-shadow: 0 0 20px cyan; }
+  0% { box-shadow: 0 0 10px cyan; }
+  50% { box-shadow: 0 0 40px cyan; }
+  100% { box-shadow: 0 0 10px cyan; }
 }
 
-button {
-  padding: 15px 30px;
+#status {
+  margin-top: 20px;
   font-size: 18px;
-  background: cyan;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
 }
