@@ -7,11 +7,14 @@
 </head>
 <body>
 
-<div class="container">
-  <div class="hologram"></div>
-  <h1>ULTRA AI</h1>
-  <button onclick="startVoice()">🎙️ बोलो</button>
-  <p id="status">सुन रहा हूँ...</p>
+<video autoplay muted loop id="bg">
+  <source src="../assets/bg.mp4" type="video/mp4">
+</video>
+
+<div class="hud">
+  <img src="../assets/logo.png" class="logo">
+  <div id="ai-face"></div>
+  <p id="status">🎙️ बोलो… मैं सुन रहा हूँ</p>
 </div>
 
 <script src="app.js"></script>
