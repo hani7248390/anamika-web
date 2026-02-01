@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anamika AI</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="chat">
+  <script>
+    if(localStorage.getItem('anamika_auth')!=='1') location.href='index.html';
+  </script>
+
+  <div id="ai-face">ANAMIKA</div>
+  <div id="chatBox"></div>
+
+  <div class="input-bar">
+    <input id="inp" placeholder="Type or speak…" />
+    <button onclick="sendMsg()">SEND</button>
+  </div>
+
+  <div id="subtitle"></div>
+
+  <script src="js/memory.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/particles.js"></script>
+</body>
+</html>
